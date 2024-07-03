@@ -11,7 +11,7 @@
 	<groupId>ru.evgeniy</groupId>
 	<artifactId>tgBot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
+	<name>TgBot</name>
 	<description>Delivery automation bot</description>
 	<url/>
 	<licenses>
