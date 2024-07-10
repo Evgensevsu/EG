@@ -2,12 +2,9 @@ package ru.evgeniy.tgBot;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.evgeniy.tgBot.entity.Category;
-import ru.evgeniy.tgBot.entity.Client;
-import ru.evgeniy.tgBot.entity.Product;
-import ru.evgeniy.tgBot.repository.CategoryRep;
-import ru.evgeniy.tgBot.repository.ClientRep;
-import ru.evgeniy.tgBot.repository.ProductRep;
+import ru.evgeniy.tgBot.entity.*;
+import ru.evgeniy.tgBot.repository.*;
+
 import java.math.BigDecimal;
 @SpringBootTest
 public class FillingTests {
@@ -17,6 +14,10 @@ public class FillingTests {
     private CategoryRep categoryRep;
     @Autowired
     private ProductRep productRep;
+    @Autowired
+    private ClientOrderRep clientOrderRep;
+    @Autowired
+    private OrderProductRep orderProductRep;
 
     @Test
     void createThreeClients(){
@@ -36,7 +37,7 @@ public class FillingTests {
     }
 
     @Test
-    // Основные категории
+        // Основные категории
     void createCategoriesAndProducts() {
         // Категория еды пицца
         Category pizza = new Category();
@@ -354,5 +355,40 @@ public class FillingTests {
         raspberryPunch.setDescription("Малиновый пунш - это сладкий напиток с насыщенным ягодным вкусом. Объем 360 мл.");
         raspberryPunch.setPrice(BigDecimal.valueOf(99.0));
         productRep.save(raspberryPunch);
+    }
+
+    @Test
+    void addOrdersForClients() {
+        Client client1 = clientRep.findByExternalId(1L);
+        Client client2 = clientRep.findByExternalId(2L);
+
+        // Создаем заказы для каждого клиента
+        ClientOrder order1 = new ClientOrder();
+        order1.setClient(client1);
+        order1.setStatus(1); // Пример статуса заказа
+        order1.setTotal(new BigDecimal("700.00"));
+        clientOrderRep.save(order1);
+
+        ClientOrder order2 = new ClientOrder();
+        order2.setClient(client2);
+        order2.setStatus(1); // Пример статуса заказа
+        order2.setTotal(new BigDecimal("1500.00"));
+        clientOrderRep.save(order2);
+
+        Product product1 = productRep.findByName("Бонито");
+        Product product2 = productRep.findByName("Хот-Бургер");
+
+        // Добавляем продукты в заказы
+        OrderProduct orderProduct1 = new OrderProduct();
+        orderProduct1.setClientOrder(order1);
+        orderProduct1.setProduct(product1);
+        orderProduct1.setCountProduct(1);
+        orderProductRep.save(orderProduct1);
+
+        OrderProduct orderProduct2 = new OrderProduct();
+        orderProduct2.setClientOrder(order2);
+        orderProduct2.setProduct(product2);
+        orderProduct2.setCountProduct(1);
+        orderProductRep.save(orderProduct2);
     }
 }

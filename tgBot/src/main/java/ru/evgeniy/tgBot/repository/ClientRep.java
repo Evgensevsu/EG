@@ -6,5 +6,5 @@ import ru.evgeniy.tgBot.entity.Client;
 
 @RepositoryRestResource(collectionResourceRel = "clients", path = "clients")
 public interface ClientRep extends JpaRepository<Client, Long> {
-
+    Client findByExternalId(long l);
 }
