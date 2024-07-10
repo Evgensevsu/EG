@@ -7,5 +7,6 @@ import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "clientOrders", path = "clientOrders")
 public interface ClientOrderRep extends JpaRepository<ClientOrder, Long> {
+
     List<ClientOrder> findByClientId(Long id);
 }

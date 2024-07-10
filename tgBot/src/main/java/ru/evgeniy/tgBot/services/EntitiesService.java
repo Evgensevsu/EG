@@ -33,19 +33,4 @@ public interface EntitiesService {
      * @param limit максимальное кол-во товаров
      */
     List<Product> getTopPopularProducts(Integer limit);
-    /**
-     * Найти всех клиентов по подстроке имени
-     * @param name подстрока имени клиента
-     */
-    default List<Client> searchClientsByName(String name) {
-        throw new UnsupportedOperationException("Доп. задание");
-    }
-    /**
-     * Найти все продукты по подстроке названия
-     * @param name подстрока названия продукта
-     */
-    default List<Product> searchProductsByName(String name) {
-        throw new UnsupportedOperationException("Доп. задание");
-    }
-
 }

@@ -1,6 +1,8 @@
 package ru.evgeniy.tgBot.services;
 
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.evgeniy.tgBot.entity.ClientOrder;
 import ru.evgeniy.tgBot.entity.OrderProduct;
@@ -34,32 +36,12 @@ public class EntitiesServiceImpl implements EntitiesService {
         return clientOrderRep.findByClientId(id);
     }
 
-    public List<Product> getClientProducts(Long id) {
-        // Получение всех продуктов по клиенту
-        List<OrderProduct> orderProducts = orderProductRep.findByClientOrderClientId(id);
-        // Извлечение продуктов из списка заказанных продуктов
-        List<Product> products = orderProducts.stream()
-                .map(OrderProduct::getProduct)
-                .distinct()
-                .collect(Collectors.toList());
-        return products;
+    public List<Product> getClientProducts(Long clientId) {
+        return orderProductRep.findDistinctProductsByClient(clientId);
     }
 
     public List<Product> getTopPopularProducts(Integer limit) {
-        // Получение всех OrderProduct
-        List<OrderProduct> orderProducts = orderProductRep.findAll();
-        // Группировка OrderProduct по продукту и подсчет общего количества каждого продукта
-        Map<Product, Integer> productCountMap = orderProducts.stream()
-                .collect(Collectors.groupingBy(OrderProduct::getProduct, Collectors.summingInt(OrderProduct::getCountProduct)));
-        // Сортировка по количеству в порядке убывания
-        List<Map.Entry<Product, Integer>> sortedProductEntries = productCountMap.entrySet().stream()
-                .sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue()))
-                .collect(Collectors.toList());
-        // Извлечение топ-N продуктов
-        List<Product> topProducts = sortedProductEntries.stream()
-                .limit(limit)
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
-        return topProducts;
+        Pageable pageable = PageRequest.of(0, limit);
+        return orderProductRep.findTopPopularProducts(pageable);
     }
 }
