@@ -44,4 +44,12 @@ public class EntitiesServiceImpl implements EntitiesService {
         Pageable pageable = PageRequest.of(0, limit);
         return orderProductRep.findTopPopularProducts(pageable);
     }
+
+    public List<Product> getCategoryProducts(String categoryName) {
+        return productRep.findProductsByCategoryName(categoryName);
+    }
+
+    public Product getProductById(int productId) {
+        return productRep.findById((long) productId).orElse(null);
+    }
 }
