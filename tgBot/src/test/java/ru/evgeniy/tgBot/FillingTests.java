@@ -53,22 +53,22 @@ public class FillingTests {
         // Подкатегории для роллов
         Category classicRolls = new Category();
         classicRolls.setName("Классические роллы");
-        classicRolls.setParent(rolls.getParent());
+        classicRolls.setParent(rolls);
         categoryRep.save(classicRolls);
 
         Category bakedRolls = new Category();
         bakedRolls.setName(" Запеченные роллы");
-        bakedRolls.setParent(rolls.getParent());
+        bakedRolls.setParent(rolls);
         categoryRep.save(bakedRolls);
 
         Category sweetRolls = new Category();
         sweetRolls.setName("Сладкие роллы");
-        sweetRolls.setParent(rolls.getParent());
+        sweetRolls.setParent(rolls);
         categoryRep.save(sweetRolls);
 
         Category sets = new Category();
         sets.setName("Наборы");
-        sets.setParent(rolls.getParent());
+        sets.setParent(rolls);
         categoryRep.save(sets);
 
         // Категория еды бургеры
@@ -79,12 +79,12 @@ public class FillingTests {
         // Подкатегории для бургеров
         Category classicBurgers = new Category();
         classicBurgers.setName("Классические бургеры");
-        classicBurgers.setParent(burgers.getParent());
+        classicBurgers.setParent(burgers);
         categoryRep.save(classicBurgers);
 
         Category spicyBurgers = new Category();
         spicyBurgers.setName("Острые бургеры");
-        spicyBurgers.setParent(burgers.getParent());
+        spicyBurgers.setParent(burgers);
         categoryRep.save(spicyBurgers);
 
         // Напитки
@@ -95,22 +95,22 @@ public class FillingTests {
         // Подкатегории для напитков
         Category carbonatedDrinks = new Category();
         carbonatedDrinks.setName("Газированные напитки");
-        carbonatedDrinks.setParent(drinks.getParent());
+        carbonatedDrinks.setParent(drinks);
         categoryRep.save(carbonatedDrinks);
 
         Category energyDrinks = new Category();
         energyDrinks.setName("Энергетические напитки");
-        energyDrinks.setParent(drinks.getParent());
+        energyDrinks.setParent(drinks);
         categoryRep.save(energyDrinks);
 
         Category juices = new Category();
         juices.setName("Соки");
-        juices.setParent(drinks.getParent());
+        juices.setParent(drinks);
         categoryRep.save(juices);
 
         Category otherDrinks = new Category();
         otherDrinks.setName("Другие");
-        otherDrinks.setParent(drinks.getParent());
+        otherDrinks.setParent(drinks);
         categoryRep.save(otherDrinks);
 
 
@@ -384,11 +384,6 @@ public class FillingTests {
         orderProduct1.setProduct(product1);
         orderProduct1.setCountProduct(1);
         orderProductRep.save(orderProduct1);
-
-        OrderProduct orderProduct2 = new OrderProduct();
-        orderProduct2.setClientOrder(order2);
-        orderProduct2.setProduct(product2);
-        orderProduct2.setCountProduct(1);
-        orderProductRep.save(orderProduct2);
     }
+
 }

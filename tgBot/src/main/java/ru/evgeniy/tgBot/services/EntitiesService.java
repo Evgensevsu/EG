@@ -33,4 +33,8 @@ public interface EntitiesService {
      * @param limit максимальное кол-во товаров
      */
     List<Product> getTopPopularProducts(Integer limit);
+
+    List<Product> getCategoryProducts(String userText);
+
+    Product getProductById(int productId);
 }

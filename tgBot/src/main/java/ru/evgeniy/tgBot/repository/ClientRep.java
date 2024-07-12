@@ -8,4 +8,6 @@ import ru.evgeniy.tgBot.entity.Client;
 public interface ClientRep extends JpaRepository<Client, Long> {
 
     Client findByExternalId(long l);
+
+    Client findFirstByExternalId(long chatId);
 }
